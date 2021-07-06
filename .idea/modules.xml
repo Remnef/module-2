@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Class_Object/Class_Object.iml" filepath="$PROJECT_DIR$/Class_Object/Class_Object.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Introduce/Introduce.iml" filepath="$PROJECT_DIR$/Introduce/Introduce.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Ke_thua/Ke_thua.iml" filepath="$PROJECT_DIR$/Ke_thua/Ke_thua.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Mang/Mang.iml" filepath="$PROJECT_DIR$/Mang/Mang.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Static/Static.iml" filepath="$PROJECT_DIR$/Static/Static.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vong_lap_java/Vong_lap_java.iml" filepath="$PROJECT_DIR$/Vong_lap_java/Vong_lap_java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/module 2.iml" filepath="$PROJECT_DIR$/.idea/module 2.iml" />
+    </modules>
+  </component>
+</project>

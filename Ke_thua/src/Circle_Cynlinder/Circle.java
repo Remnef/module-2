@@ -1,0 +1,48 @@
+package Circle_Cynlinder;
+
+public class Circle {
+    double radius = 1.0;
+    String color = "purple";
+
+    public Circle() {
+    }
+
+    public Circle(double radius, String color) {
+        this.radius = radius;
+        this.color = color;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public double getArea(){
+        return radius*Math.PI*2;
+    }
+
+    private double getPerimeter(){
+        return radius*radius*Math.PI;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                ", color='" + color + '\'' +
+                ",Area = "+ getArea() +
+                ",Perimeter = "+ getPerimeter()+
+                '}';
+    }
+}
