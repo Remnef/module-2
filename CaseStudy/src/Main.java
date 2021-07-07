@@ -35,19 +35,26 @@ public class Main {
                         switch (clientChoice) {
                             case 1: {
                                 int bill = 0;
+                                String line ="";
                                 String check = "";
                                 do {
                                     int id = 0;
                                     do {
                                         System.out.print("\n\tWhat drink you wanna (please get choice by Id) : ");
                                         str = new Scanner(System.in).nextLine();
-                                        id = Integer.parseInt(str);
-                                    }while(!working.checkRegex(str,"\\d*") || id < 0 || id > drinks.size());
-                                    System.out.print("\n\tAnd amount: ");
-                                    drinks.get(id-1).setAmount(new Scanner(System.in).nextByte());
+                                        if (working.checkRegex(str,"\\d+")){
+                                            id = Integer.parseInt(str);
+                                        }
+                                    }while(!working.checkRegex(str,"\\d+") || id <= 0 || id > drinks.size());
+                                    do {
+                                        System.out.print("\n\tAnd amount: ");
+                                        str = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(str,"\\d+"));
+                                    drinks.get(id-1).setAmount(Integer.parseInt(str));
                                     bill += drinks.get(id-1).getBill();
                                     System.out.print("\n\tYour choice is :");
                                     System.out.println(drinks.get(id - 1).toString());
+                                    line += "\t\t"+drinks.get(id - 1).toString();
                                     working.writeAdmin(pathOrder, drinks.get(id - 1).toString());
                                     System.out.println("\tWe are got your order. Thank you! ^^");
                                     do {
@@ -55,6 +62,8 @@ public class Main {
                                         check = new Scanner(System.in).nextLine();
                                     }while(!working.checkRegex(check,"([Y|N])"));
                                     if (check.equals("N")){
+                                        System.out.println("\n\tAll bill is: ");
+                                        System.out.println(line);
                                         System.out.println("\tYour bill is: "+bill);
                                     }
                                 } while (check.equals("Y"));
@@ -129,20 +138,32 @@ public class Main {
                             {
                                 boolean doing = false;
                                 do {
-                                    System.out.print("\n\tHow much drinks do you wanna add: ");
-                                    int count = new Scanner(System.in).nextByte();
+                                    working.showList(drinks);
+                                    do {
+                                        System.out.print("\n\tHow much drinks do you wanna add: : ");
+                                        str = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(str,"\\d+"));
+                                    int count = Integer.parseInt(str);
                                     for (int i = 0; i < count; i++) {
                                         Drink drink = new Drink();
                                         System.out.print("\t\t-Name: ");
                                         drink.setName(new Scanner(System.in).nextLine());
-                                        System.out.print("\t\t-Cost: ");
-                                        drink.setCost(new Scanner(System.in).nextInt());
+                                        do {
+                                            System.out.print("\t\t-Cost: ");
+                                            str = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(str,"\\d+"));
+                                        int demo = Integer.parseInt(str);
+                                        drink.setCost(demo);
                                         System.out.print("\t\t-Type: ");
                                         drink.setType(new Scanner(System.in).nextLine());
-                                        drinks.add(drink);
-                                        System.out.println("\tThe drink is added!\n");
+                                        if (working.checkName(drink.getName(),drinks)){
+                                            System.out.println("\t\tThis drink is exist!");
+                                        }else {
+                                            drinks.add(drink);
+                                            System.out.println("\t"+working.getMessage(drink));
+                                            System.out.println("\tThis drink is added!\n");
+                                        }
                                     }
-                                    System.out.println("\n\tYou have successfully added " + count + ((count > 1) ? " drinks" : " drink"));
                                     working.sortDrinks(drinks);
                                     working.writef(pathFile, drinks);
                                     System.out.println("\n\tThe new menu is:");
@@ -161,13 +182,24 @@ public class Main {
                                 boolean doing = false;
                                 do{
                                     working.showList(drinks);
-                                    System.out.print("\n\tHow much drinks do you wanna delete: ");
-                                    int count = new Scanner(System.in).nextByte();
+                                    do {
+                                        System.out.print("\n\tHow much drinks do you wanna delete: ");
+                                        str = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(str,"\\d+"));
+                                    int count = Integer.parseInt(str);
                                     for (int i = 0; i < count; i++) {
-                                        System.out.print("\t\tThe number "+(i+1)+" id is: ");
-                                        int id = new Scanner(System.in).nextInt();
-                                        drinks.remove(id-1);
+                                        int id = 0;
+                                        do {
+                                            System.out.print("\t\tThe number "+(i+1)+" id is: ");
+                                            str = new Scanner(System.in).nextLine();
+                                            if (working.checkRegex(str,"\\d+")){
+                                                id = Integer.parseInt(str);
+                                            }
+                                        }while(!working.checkRegex(str,"\\d+") || id <= 0 || id > drinks.size());
+                                        System.out.println("\n\t"+working.getMessage(drinks.get(id-1)));
                                         System.out.println("\tThe drink is deleted!");
+                                        drinks.remove(id-1);
+
                                     }
                                     working.sortDrinks(drinks);
                                     working.writef(pathFile,drinks);
@@ -187,18 +219,31 @@ public class Main {
                                 boolean doing = false;
                                 do{
                                     working.showList(drinks);
-                                    System.out.print("\n\tHow much drinks do you wanna edit: ");
-                                    int count = new Scanner(System.in).nextByte();
+                                    do {
+                                        System.out.print("\n\tHow much drinks do you wanna edit: ");
+                                        str = new Scanner(System.in).nextLine();
+                                    }while(!working.checkRegex(str,"\\d+"));
+                                    int count = Integer.parseInt(str);
                                     for (int i = 0; i < count; i++) {
-                                        System.out.print("\t\tThe number "+(i+1)+" id is: ");
-                                        int id = new Scanner(System.in).nextInt();
+                                        int id = 0;
+                                        do {
+                                            System.out.print("\n\tThe Id "+(i+1)+" is : ");
+                                            str = new Scanner(System.in).nextLine();
+                                            if (working.checkRegex(str,"\\d+")){
+                                                id = Integer.parseInt(str);
+                                            }
+                                        }while(!working.checkRegex(str,"\\d+") || id <= 0 || id > drinks.size());
                                         System.out.print("\t\t-New name: ");
                                         drinks.get(id-1).setName(new Scanner(System.in).nextLine());
-                                        System.out.print("\t\t-New cost: ");
-                                        drinks.get(id-1).setCost(new Scanner(System.in).nextInt());
+                                        do {
+                                            System.out.print("\t\t-Cost: ");
+                                            str = new Scanner(System.in).nextLine();
+                                        }while(!working.checkRegex(str,"\\d+"));
+                                        drinks.get(id-1).setCost(Integer.parseInt(str));
                                         System.out.print("\t\t-New type: ");
                                         drinks.get(id-1).setType(new Scanner(System.in).nextLine());
-                                        System.out.println("\tThe drink is edited!");
+                                        System.out.println("\n\t"+working.getMessage(drinks.get(id-1)));
+                                        System.out.println("\tThis drink is edited!");
                                     }
                                     working.sortDrinks(drinks);
                                     working.writef(pathFile,drinks);

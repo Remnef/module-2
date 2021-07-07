@@ -58,11 +58,17 @@ public class Working {
                 System.out.format("%20s|", drink.getType());
             }
             System.out.format("%20s|",drink.getName());
-            System.out.format("%20d|",drink.getCost());
+            System.out.format(String.format("%,20d VND|",drink.getCost()));
             System.out.format("%20d|",(i+1));
             System.out.println();
-
         }
+    }
+
+    public String getMessage(Drink drink){
+        return drink.getType() +
+                "-[ " + drink.getName()+
+                ",cost: " + drink.getCost() +
+                " ]\n";
     }
 
     public String readAdmin(String path){
@@ -139,9 +145,24 @@ public class Working {
         System.out.println("\t\t4.Delete drink by Id.");
         System.out.println("\t\t5.Edit drink by Id.");
         System.out.println("\t\t0.Back.");
-        System.out.print("\tYour choice is: ");
-        int choice = new Scanner(System.in).nextByte();
+        Working working = new Working();
+        String str = "";
+        do {
+            System.out.print("\tYour choice is: ");
+            str = new Scanner(System.in).nextLine();
+        }while(!working.checkRegex(str,"([0|1|2|3|4|5])"));
+        int choice = Integer.parseInt(str);
         return choice;
+    }
+
+    public boolean checkName(String name, List<Drink> list){
+        boolean check = false;
+        for(int i = 0; i<list.size(); i++){
+            if (name.equals(list.get(i).getName())){
+                check = true;
+            }
+        }
+        return  check;
     }
 
 }
